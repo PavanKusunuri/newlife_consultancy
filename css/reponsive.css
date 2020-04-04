@@ -1,0 +1,11 @@
+.sm-margin-four-bottom {
+    margin-bottom:4%;
+}
+
+
+
+/* PADDING TOP-BOTTOM */
+.xs-padding-30px-tb {
+    padding-top:30px !important;
+    padding-bottom:30px !important;
+}
