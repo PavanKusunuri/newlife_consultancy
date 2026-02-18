@@ -1,272 +1,452 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NewLife IT Consultancy</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./css/custom.css">
-  <link rel="stylesheet" href="./css/reponsive.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#eb5d1e',
+              light:   '#ee7843',
+              dark:    '#3c1300',
+            },
+            muted: '#7a6960',
+            nav:   '#4e4039',
+          },
+          fontFamily: {
+            sans: ['"Open Sans"', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome (footer social icons) -->
   <link rel="stylesheet" href="./assets/css/all.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <style>
+    /* Carousel */
+    .carousel { position: relative; overflow: hidden; }
+    .carousel-inner { display: flex; transition: transform 0.6s ease; }
+    .carousel-item  { min-width: 100%; }
+    .carousel-item img { width: 100%; height: 520px; object-fit: cover; }
+
+    /* Nav active underline */
+    .nav-link-item { position: relative; }
+    .nav-link-item::after {
+      content: ''; position: absolute;
+      bottom: -2px; left: 50%;
+      width: 0; height: 2px;
+      background: #eb5d1e;
+      transition: all 0.3s;
+      transform: translateX(-50%);
+    }
+    .nav-link-item:hover::after,
+    .nav-link-item.active::after { width: 70%; }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    /* Section title underline */
+    .section-heading::after {
+      content: ''; display: block;
+      width: 60px; height: 3px;
+      background: #eb5d1e;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Service card hover */
+    .service-card { transition: transform 0.3s, border-color 0.3s; }
+    .service-card:hover { transform: translateY(-6px); border-color: #ef7f4d; }
+
+    /* Testimonial equal-height */
+    .testimonial-card { display: flex; flex-direction: column; }
+    .testimonial-card .body { flex: 1; }
+
+    /* Back-to-top hidden by default */
+    #back-to-top { display: none; }
+  </style>
 </head>
 
-<body>
-  <header id="header" class="fixed-top">
-    <div class="container-fluid d-flex">
-      <div class="logo mr-auto">
-        <h1 class="text-light">
-          <a href="index.html">
-            <span> NewLife IT Consultancy</span>
-          </a>
-        </h1>
-      </div>
-      <nav class="navigation-menu d-none d-lg-block">
-        <ul>
-          <li class="active"><a href="#home">Home</a></li>
-          <li><a href="#about-us">About</a></li>
-          <li><a href="#services"> Services</a></li>
-          <li><a href="#clients">Clients</a></li>
-          <li><a href="#contact-us">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main id="main">
-    <div id="home">
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="d-block w-100" src="./assets/img/home/img-1.jpg" alt="First slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="./assets/img/home/img-2.jpg" alt="Second slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="./assets/img/home/img-3.jpg" alt="Third slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="./assets/img/home/img-4.jpg" alt="Fourth slide">
-          </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-    </div>
-    <section id="about-us">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 text-center center-col margin-eight-bottom xs-margin-30px-bottom">
+<body class="font-sans text-gray-700 antialiased">
 
-         <div class="section-title">
-           <h2>About us</h2>
-         </div>
-            <h5 class="font-weight-300 text-extra-dark-gray">
-              We are one of the largest global HR Services firms.We combine our passion for people with intelligent technology to help organizations and talent convert potential into performance.Moving them forward.                        
-            </h5>
+  <!-- HEADER -->
+  <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-[72px]">
+
+      <a href="index.html" class="text-xl font-semibold tracking-widest text-muted no-underline">
+        NewLife IT Consultancy
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden lg:flex items-center space-x-1">
+        <a href="#home"       class="nav-link-item active px-4 py-2 text-[15px] text-nav hover:text-brand transition-colors">Home</a>
+        <a href="#about-us"   class="nav-link-item px-4 py-2 text-[15px] text-nav hover:text-brand transition-colors">About</a>
+        <a href="#services"   class="nav-link-item px-4 py-2 text-[15px] text-nav hover:text-brand transition-colors">Services</a>
+        <a href="#clients"    class="nav-link-item px-4 py-2 text-[15px] text-nav hover:text-brand transition-colors">Clients</a>
+        <a href="#contact-us" class="nav-link-item px-4 py-2 text-[15px] text-nav hover:text-brand transition-colors">Contact</a>
+      </nav>
+
+      <!-- Mobile hamburger -->
+      <button id="menu-toggle" class="lg:hidden text-nav focus:outline-none" aria-label="Toggle menu">
+        <svg id="icon-open"  class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-7 h-7 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Mobile dropdown -->
+    <div id="mobile-menu" class="lg:hidden hidden bg-nav text-white px-6 py-4 space-y-3 shadow-lg">
+      <a href="#home"       class="block py-2 hover:text-orange-300 transition-colors" onclick="closeMobileMenu()">Home</a>
+      <a href="#about-us"   class="block py-2 hover:text-orange-300 transition-colors" onclick="closeMobileMenu()">About</a>
+      <a href="#services"   class="block py-2 hover:text-orange-300 transition-colors" onclick="closeMobileMenu()">Services</a>
+      <a href="#clients"    class="block py-2 hover:text-orange-300 transition-colors" onclick="closeMobileMenu()">Clients</a>
+      <a href="#contact-us" class="block py-2 hover:text-orange-300 transition-colors" onclick="closeMobileMenu()">Contact</a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="mt-[72px]">
+
+    <!-- HERO CAROUSEL -->
+    <section id="home" class="relative">
+      <div class="carousel" id="heroCarousel">
+        <div class="carousel-inner" id="carouselInner">
+          <div class="carousel-item"><img src="./assets/img/home/img-1.jpg" alt="Slide 1"></div>
+          <div class="carousel-item"><img src="./assets/img/home/img-2.jpg" alt="Slide 2"></div>
+          <div class="carousel-item"><img src="./assets/img/home/img-3.jpg" alt="Slide 3"></div>
+          <div class="carousel-item"><img src="./assets/img/home/img-4.jpg" alt="Slide 4"></div>
+        </div>
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black/45 flex flex-col items-center justify-center text-center px-4 pointer-events-none">
+          <h1 class="text-white text-3xl md:text-5xl font-bold leading-tight drop-shadow-lg">
+            Moving talent forward —<br class="hidden md:block"> one placement at a time.
+          </h1>
+          <p class="mt-4 text-white/90 text-lg max-w-2xl">
+            HR Consulting &nbsp;&nbsp; Recruitment &nbsp;&nbsp; Payroll &nbsp;&nbsp; Audit Solutions
+          </p>
+          <a href="#about-us" class="pointer-events-auto mt-8 inline-block bg-brand hover:bg-orange-500 text-white font-semibold px-8 py-3 rounded-full transition-colors shadow-lg">
+            Discover More
+          </a>
+        </div>
+        <!-- Prev / Next -->
+        <button onclick="moveCarousel(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/60 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors focus:outline-none">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button onclick="moveCarousel(1)"  class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/60 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors focus:outline-none">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <!-- Dots -->
+        <div id="carouselDots" class="absolute bottom-5 left-1/2 -translate-x-1/2 flex space-x-2"></div>
+      </div>
+    </section>
+
+    <!-- ABOUT US -->
+    <section id="about-us" class="py-20 bg-white">
+      <div class="max-w-5xl mx-auto px-4 text-center">
+        <h2 class="section-heading text-3xl font-bold text-gray-800 mb-8">About Us</h2>
+        <p class="text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          We are one of the largest global HR Services firms. We combine our passion for people with
+          intelligent technology to help organisations and talent convert potential into performance —
+          moving them forward.
+        </p>
+        <!-- Stats -->
+        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="bg-orange-50 rounded-2xl p-6">
+            <p class="text-4xl font-bold text-brand">10+</p>
+            <p class="text-sm text-gray-500 mt-1">Years Experience</p>
+          </div>
+          <div class="bg-orange-50 rounded-2xl p-6">
+            <p class="text-4xl font-bold text-brand">500+</p>
+            <p class="text-sm text-gray-500 mt-1">Clients Served</p>
+          </div>
+          <div class="bg-orange-50 rounded-2xl p-6">
+            <p class="text-4xl font-bold text-brand">5k+</p>
+            <p class="text-sm text-gray-500 mt-1">Placements Made</p>
+          </div>
+          <div class="bg-orange-50 rounded-2xl p-6">
+            <p class="text-4xl font-bold text-brand">98%</p>
+            <p class="text-sm text-gray-500 mt-1">Satisfaction Rate</p>
           </div>
         </div>
       </div>
     </section>
-    <section id="services" class="services bg-light-gray">
-      <div class="container">
-        <div class="section-title" data-aos="fade-up">
-          <h2>Services</h2>
-        </div>
-        <div class="row">
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                <h4 class="title"><a href="">HR Consulting Services</a></h4>
-                <p class="description">
-                  Human Resources are Key and Primary agents in Business growth, Profits, Market acquisition and Excellency of any Organization.
-                </p>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="200">
-              <div class="icon-box">
-                <div class="icon"><i class="bx bx-file"></i></div>
-                <h4 class="title"><a href="">Recruitment Solutions</a></h4>
-                <p class="description">We know how important it is to recruit the right people in the right places – and how much time that process can take.</p>
-              </div>
-            </div>
-  
-            <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="300">
-              <div class="icon-box">
-                <div class="icon"><i class="bx bx-tachometer"></i></div>
-                <h4 class="title"><a href="">Total Payroll Solutions</a></h4>
-                <p class="description">
-                  Any organization success will be based on competent and attractive Compensation giving to their workforce.                    </p>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="400">
-              <div class="icon-box">
-                <div class="icon"><i class="bx bx-world"></i></div>
-                <h4 class="title"><a href="">HR Audit and HPR Solutions</a></h4>
-                <p class="description">
-                  HR Audit involves an organization’s strategic actions to take an intensely objective look at its HR policies, procedures and practices.
-                    </p>
-              </div>
-            </div>
+
+    <!-- SERVICES -->
+    <section id="services" class="py-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4">
+        <h2 class="section-heading text-3xl font-bold text-gray-800 text-center mb-12">Services</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+          <div class="service-card bg-white rounded-2xl p-8 text-center shadow-md border-b-4 border-transparent">
+            <div class="text-5xl text-brand mb-4"><i class='bx bxl-dribbble'></i></div>
+            <h4 class="text-lg font-bold text-gray-800 mb-3">HR Consulting Services</h4>
+            <p class="text-gray-500 text-sm leading-relaxed">Human Resources are key and primary agents in business growth, profits, market acquisition and excellency of any organisation.</p>
           </div>
-        </div>
-      </section>
-    <section id="clients" class="clients">
-      <div class="container">    
-        <div class="section-title" data-aos="fade-up">
-          <h2 class='pb-5'>Clients</h2>
-        </div>
-        <div class="owl-carousel clients-carousel" data-aos="fade-up" data-aos-delay="100">
-          <div class="row">
-            <div class="col-md-4 col-sm-12 client-img image-center">
-              <img src="assets/img/clients/client-1.png" alt="client-1">
-            </div>
-            <div class="col-md-4 col-sm-12 client-img image-center">
-              <img src="assets/img/clients/client-2.png" alt="client-2">
-            </div>
-            <div class="col-md-4 col-sm-12 client-img image-center">
-              <img src="assets/img/clients/client-3.png" alt="client-3">
-            </div>
+
+          <div class="service-card bg-white rounded-2xl p-8 text-center shadow-md border-b-4 border-transparent">
+            <div class="text-5xl text-brand mb-4"><i class='bx bx-file'></i></div>
+            <h4 class="text-lg font-bold text-gray-800 mb-3">Recruitment Solutions</h4>
+            <p class="text-gray-500 text-sm leading-relaxed">We know how important it is to recruit the right people in the right places — and how much time that process can take.</p>
           </div>
-          <div class="row pt-5">
-            <div class="col-md-4 col-sm-12 client-img image-center">
-              <img src="assets/img/clients/client-4.png" alt="client-4">
-            </div>
-            <div class="col-md-4 col-sm-12 client-img image-center">
-              <img src="assets/img/clients/client-5.png" alt="client-5">
-            </div>
-            <div class="col-md-4 col-sm-12 client-img image-center">
-              <img src="assets/img/clients/client-6.png" alt="client-6">
-            </div>
+
+          <div class="service-card bg-white rounded-2xl p-8 text-center shadow-md border-b-4 border-transparent">
+            <div class="text-5xl text-brand mb-4"><i class='bx bx-tachometer'></i></div>
+            <h4 class="text-lg font-bold text-gray-800 mb-3">Total Payroll Solutions</h4>
+            <p class="text-gray-500 text-sm leading-relaxed">Any organisation's success will be based on competent and attractive compensation given to their workforce.</p>
           </div>
+
+          <div class="service-card bg-white rounded-2xl p-8 text-center shadow-md border-b-4 border-transparent">
+            <div class="text-5xl text-brand mb-4"><i class='bx bx-world'></i></div>
+            <h4 class="text-lg font-bold text-gray-800 mb-3">HR Audit &amp; HPR Solutions</h4>
+            <p class="text-gray-500 text-sm leading-relaxed">HR Audit involves an organisation's strategic actions to take an intensely objective look at its HR policies, procedures and practices.</p>
+          </div>
+
         </div>
       </div>
     </section>
-    <!-- Testimonials Section--->
-    <section id="testimonials" class="bg-light-gray">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 center-col margin-eight-bottom text-center last-paragraph-no-margin sm-margin-40px-bottom xs-margin-30px-bottom">
-            <div class="section-title">
-              <h2>Testimonials</h2>
-            </div>
-            <h5 class="alt-font font-weight-700 text-extra-dark-gray text-uppercase margin-15px-bottom text-center">
-              What People Say
-            </h5>
-              <p class="no-margin-bottom">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since. Lorem Ipsum has been the industry. Lorem Ipsum has been the industry's standard dummy text since.
-              </p>
-          </div>  
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-md-3 col-sm-4 col-xs-12 sm-margin-four-bottom text-center xs-margin-30px-bottom wow fadeInRight last-paragraph-no-margin">
-            <div class="card">
-              <img class="img-fluid card-img-top" src="https://static.pexels.com/photos/35188/child-childrens-baby-children-s.jpg" alt="Card image cap">
-                <div class="card-block">
-                  <p class="card-text">NewLife Technologies continues to be one of our best partners for IT services. They provide high-quality services in a flexible, customer-centric framework.</p>
-                  <h5 class="card-title">Richard James</h4>
-                    <small class="text-muted">Manager</small>
-                </div>
-              </div>
-          </div>
-          <div class="col-md-3 col-sm-4 col-xs-12 sm-margin-four-bottom text-center xs-margin-30px-bottom wow fadeInRight last-paragraph-no-margin" data-wow-delay="0.2s">
-            <div class="card">
-              <img class="img-fluid card-img-top" src="https://static.pexels.com/photos/35188/child-childrens-baby-children-s.jpg" alt="Card image cap">
-                <div class="card-block">
-                    <p class="card-text">NewLife Technologies consistently brings solid candidates to a variety of roles and provides insight and advice beyond just talent acquisition.</p>
-                    <h5 class="card-title">Diane Martin</h4>
-                      <small class="text-muted">Manager</small>
-                  </div>
-            </div> 
-          </div>
-          <div class="col-md-3 col-sm-4 col-xs-12 sm-margin-four-bottom text-center xs-margin-30px-bottom wow fadeInRight last-paragraph-no-margin" data-wow-delay="0.2s">
-            <div class="card">
-              <img class="img-fluid card-img-top" src="https://static.pexels.com/photos/35188/child-childrens-baby-children-s.jpg" alt="Card image cap">
-              <div class="card-block">
-                <p class="card-text">
-                  I have yet to encounter anyone at NewLife  who wasn’t head and shoulders above their competition
-              </p>
-              <h5 class="card-title">Isaac Quinn</h5>
-                <small class="text-muted">Manager</small>
-            </div> 
-          </div> 
-          </div>
+
+    <!-- CLIENTS -->
+    <section id="clients" class="py-20 bg-white">
+      <div class="max-w-5xl mx-auto px-4">
+        <h2 class="section-heading text-3xl font-bold text-gray-800 text-center mb-12">Clients</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-10 items-center justify-items-center">
+          <img src="assets/img/clients/client-1.png" alt="Client 1" class="w-36 grayscale hover:grayscale-0 transition duration-300">
+          <img src="assets/img/clients/client-2.png" alt="Client 2" class="w-36 grayscale hover:grayscale-0 transition duration-300">
+          <img src="assets/img/clients/client-3.png" alt="Client 3" class="w-36 grayscale hover:grayscale-0 transition duration-300">
+          <img src="assets/img/clients/client-4.png" alt="Client 4" class="w-36 grayscale hover:grayscale-0 transition duration-300">
+          <img src="assets/img/clients/client-5.png" alt="Client 5" class="w-36 grayscale hover:grayscale-0 transition duration-300">
+          <img src="assets/img/clients/client-6.png" alt="Client 6" class="w-36 grayscale hover:grayscale-0 transition duration-300">
         </div>
       </div>
     </section>
-    </section>
-    <section id="contact-us">
-        <div class="footer-newsletter" data-aos="fade-up">
-          <div class="section-title" data-aos="fade-up">
-            <h2>Contact Us</h2>
-          </div>
-            <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-md-3">
-                  <h5>VISIT OUR OFFICE</h5>
-                    <pre> Bangalore </pre>
-                </div>
-                <div class="col-md-3">
-                  <h5>LET'S TALK</h5>
-                    <span>Phone:</span>+91-999 999 9999
-                </div>
-                <div class="col-md-3">
-                  <h5>EMAIL US</h5>
-                    <p>
-                      <a href="mailto:hr@newlifeitconsultancy.com">hr@newlifeitconsultancy.com</a><br>
-                    </p>
-                </div>
-              </div>
-              </div>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="py-20 bg-gray-50">
+      <div class="max-w-5xl mx-auto px-4">
+        <h2 class="section-heading text-3xl font-bold text-gray-800 text-center mb-4">Testimonials</h2>
+        <p class="text-center text-gray-400 mb-12 text-xs uppercase tracking-widest font-semibold">What People Say</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          <div class="testimonial-card bg-white rounded-2xl shadow-md overflow-hidden">
+            <img class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop" alt="Richard James">
+            <div class="body p-6">
+              <p class="text-gray-500 text-sm leading-relaxed italic">"NewLife Technologies continues to be one of our best partners for IT services. They provide high-quality services in a flexible, customer-centric framework."</p>
+            </div>
+            <div class="px-6 pb-6">
+              <p class="font-bold text-gray-800">Richard James</p>
+              <p class="text-xs text-gray-400">Manager</p>
             </div>
           </div>
-    </section>
-  <footer class="footer-strip padding-50px-tb xs-padding-30px-tb bg-light-gray">
-    <div class="container">
-        <div class="row equalize xs-equalize-auto">
-            <div class="col-md-3 col-sm-3 col-xs-12 display-table sm-text-center xs-margin-20px-bottom">
-                <div class="display-table-cell vertical-align-middle">
-                    <div class="logo mr-auto">
-                        <h1 class="text-light" style=" margin-top:0px; padding-top:0px">
-                            <a href="index.html" style="text-decoration: none;">
-                                <span style="color: #7a6960; font-weight: 400; font-size: 20px; "> NewLife IT Consultancy</span>
-                            </a>
-                        </h1>
-                        </h1>
-                    </h1>
-                </div>
-                </div>
-            </div> 
-            <div class="col-md-6 col-sm-6 col-xs-12 text-center text-small alt-font display-table xs-margin-10px-bottom sm-text-center">
-                <div class="footer-text">
-                    &copy; 2020  NewLife IT Consultancy.
-                </div>
+
+          <div class="testimonial-card bg-white rounded-2xl shadow-md overflow-hidden">
+            <img class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&auto=format&fit=crop" alt="Diane Martin">
+            <div class="body p-6">
+              <p class="text-gray-500 text-sm leading-relaxed italic">"NewLife Technologies consistently brings solid candidates to a variety of roles and provides insight and advice beyond just talent acquisition."</p>
             </div>
-            <div class="col-md-3 col-sm-3 col-xs-12 display-table  text-right sm-text-center">
-                <div class="display-table-cell vertical-align-middle">
-                    <div class="social-icon-style-8 display-inline-block vertical-align-middle">
-                        <ul class="large-icon no-margin-bottom d-flex">
-                            <li><a class="facebook text-extra-dark-gray" href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-                            <li><a class="twitter text-extra-dark-gray" href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                            <li><a class="google text-extra-dark-gray" href="https://plus.google.com" target="_blank"><i class="fab fa-google-plus-g"></i></a></li>
-                            <li><a class="linkedin text-extra-dark-gray" href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin -inno-margin-right" aria-hidden="true"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="px-6 pb-6">
+              <p class="font-bold text-gray-800">Diane Martin</p>
+              <p class="text-xs text-gray-400">Manager</p>
             </div>
+          </div>
+
+          <div class="testimonial-card bg-white rounded-2xl shadow-md overflow-hidden">
+            <img class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop" alt="Isaac Quinn">
+            <div class="body p-6">
+              <p class="text-gray-500 text-sm leading-relaxed italic">"I have yet to encounter anyone at NewLife who wasn't head and shoulders above their competition."</p>
+            </div>
+            <div class="px-6 pb-6">
+              <p class="font-bold text-gray-800">Isaac Quinn</p>
+              <p class="text-xs text-gray-400">Manager</p>
+            </div>
+          </div>
+
         </div>
+      </div>
+    </section>
+
+    <!-- CONTACT US -->
+    <section id="contact-us" class="py-20 bg-white">
+      <div class="max-w-5xl mx-auto px-4">
+        <h2 class="section-heading text-3xl font-bold text-gray-800 text-center mb-12">Contact Us</h2>
+
+        <!-- Contact info strip -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center mb-16">
+
+          <div class="flex flex-col items-center gap-3">
+            <div class="w-14 h-14 rounded-full bg-orange-100 flex items-center justify-center text-brand text-2xl">
+              <i class='bx bx-map'></i>
+            </div>
+            <h5 class="font-bold text-gray-800 uppercase tracking-wider text-sm">Visit Our Office</h5>
+            <p class="text-gray-500 text-sm">Bangalore, India</p>
+          </div>
+
+          <div class="flex flex-col items-center gap-3">
+            <div class="w-14 h-14 rounded-full bg-orange-100 flex items-center justify-center text-brand text-2xl">
+              <i class='bx bx-phone'></i>
+            </div>
+            <h5 class="font-bold text-gray-800 uppercase tracking-wider text-sm">Let's Talk</h5>
+            <p class="text-gray-500 text-sm">+91-999 999 9999</p>
+          </div>
+
+          <div class="flex flex-col items-center gap-3">
+            <div class="w-14 h-14 rounded-full bg-orange-100 flex items-center justify-center text-brand text-2xl">
+              <i class='bx bx-envelope'></i>
+            </div>
+            <h5 class="font-bold text-gray-800 uppercase tracking-wider text-sm">Email Us</h5>
+            <a href="mailto:hr@newlifeitconsultancy.com" class="text-brand hover:text-orange-500 text-sm transition-colors">
+              hr@newlifeitconsultancy.com
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Contact form -->
+        <div class="max-w-2xl mx-auto bg-gray-50 rounded-2xl p-8 shadow-sm">
+          <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">Send Us a Message</h3>
+          <form class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input type="text"  placeholder="Your Name"  class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-300">
+              <input type="email" placeholder="Your Email" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-300">
+            </div>
+            <input type="text" placeholder="Subject" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-300">
+            <textarea rows="5" placeholder="Your message..." class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-300 resize-none"></textarea>
+            <button type="submit" class="w-full bg-brand hover:bg-orange-500 text-white font-semibold py-3 rounded-lg transition-colors">
+              Send Message
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-50 border-t border-gray-200 py-10">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+
+      <a href="index.html" class="text-lg font-semibold tracking-widest text-muted">
+        NewLife IT Consultancy
+      </a>
+
+      <p class="text-sm text-gray-400">&copy; 2025 NewLife IT Consultancy. All rights reserved.</p>
+
+      <ul class="flex items-center space-x-3">
+        <li>
+          <a href="https://www.facebook.com/" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-brand hover:text-white text-gray-600 transition-colors">
+            <i class="fab fa-facebook-f text-sm"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-brand hover:text-white text-gray-600 transition-colors">
+            <i class="fab fa-twitter text-sm"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://linkedin.com/" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-brand hover:text-white text-gray-600 transition-colors">
+            <i class="fab fa-linkedin text-sm"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://plus.google.com" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-brand hover:text-white text-gray-600 transition-colors">
+            <i class="fab fa-google-plus-g text-sm"></i>
+          </a>
+        </li>
+      </ul>
+
     </div>
   </footer>
-  </main>
-</body>
 
-<script src="./assets/js/main.js"></script>
-<!-- <-- Bootstrap CDN Links  -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- Back to top -->
+  <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    class="fixed bottom-6 right-6 w-11 h-11 bg-brand hover:bg-orange-500 text-white rounded-full shadow-lg flex items-center justify-center transition-colors z-50 focus:outline-none">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <!-- SCRIPTS -->
+  <script>
+    /* Mobile menu */
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen   = document.getElementById('icon-open');
+    const iconClose  = document.getElementById('icon-close');
+
+    menuToggle.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden', !isHidden);
+      iconClose.classList.toggle('hidden', isHidden);
+    });
+
+    function closeMobileMenu() {
+      mobileMenu.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    }
+
+    /* Active nav on scroll */
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks  = document.querySelectorAll('.nav-link-item');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 90) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+      document.getElementById('back-to-top').style.display =
+        window.scrollY > 400 ? 'flex' : 'none';
+    });
+
+    /* Carousel */
+    let currentSlide = 0;
+    const inner  = document.getElementById('carouselInner');
+    const slides = inner.querySelectorAll('.carousel-item');
+    const dotsEl = document.getElementById('carouselDots');
+
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'w-3 h-3 rounded-full focus:outline-none transition-colors bg-white/50';
+      d.onclick = () => goToSlide(i);
+      dotsEl.appendChild(d);
+    });
+
+    function updateCarousel() {
+      inner.style.transform = `translateX(-${currentSlide * 100}%)`;
+      dotsEl.querySelectorAll('button').forEach((d, i) => {
+        d.className = i === currentSlide
+          ? 'w-3 h-3 rounded-full focus:outline-none transition-colors bg-white'
+          : 'w-3 h-3 rounded-full focus:outline-none transition-colors bg-white/50';
+      });
+    }
+
+    function moveCarousel(dir) {
+      currentSlide = (currentSlide + dir + slides.length) % slides.length;
+      updateCarousel();
+    }
+
+    function goToSlide(n) { currentSlide = n; updateCarousel(); }
+
+    updateCarousel();
+    setInterval(() => moveCarousel(1), 4000);
+  </script>
+
+</body>
 </html>
